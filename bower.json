@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-growl",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "homepage": "https://github.com/softwarespot/bootstrap-growl.git",
   "description": "Pretty simple jQuery plugin that turns standard Bootstrap alerts into hovering \"Growl-like\" notifications",
   "main": "bootstrap-growl.js",
