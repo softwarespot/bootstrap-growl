@@ -14,11 +14,11 @@
 
             $(function() {
                 $.bootstrapGrowl("This is a test.");
-                
+
                 setTimeout(function() {
                     $.bootstrapGrowl("This is another test.", { type: 'success' });
                 }, 1000);
-                
+
                 setTimeout(function() {
                     $.bootstrapGrowl("Danger, Danger!", {
                         type: 'danger',
@@ -27,7 +27,7 @@
                         allow_dismiss: false
                     });
                 }, 2000);
-                
+
                 setTimeout(function() {
                     $.bootstrapGrowl("Danger, Danger!", {
                         type: 'info',
