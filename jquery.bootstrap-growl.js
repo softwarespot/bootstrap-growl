@@ -38,20 +38,16 @@
             var $button = $('<button/>')
                 .attr('type', 'button')
                 .addClass('close')
-                .attr('data-dismiss', 'alert'),
+                .attr('data-dismiss', 'alert')
+                .attr('aria-label', 'Close'),
 
                 // The small 'x'
                 $cross = $('<span/>')
                     .attr('aria-hidden', 'true')
-                    .html('&times;'),
+                    .html('&times;');
 
-                $close = $('<span/>')
-                    .addClass('sr-only')
-                    .html('Close');
-
-            // Append both elements to the close button
+            // Append the cross to the button element
             $button.append($cross);
-            $button.append($close);
 
             // Append the close button to the alert
             $alert.append($button);
@@ -162,6 +158,65 @@
 
         }
 
+        // If draggable is boolean and has been set to true
+        if (isBoolean(options.draggable) && options.draggable) {
+            // Cache the jQuery object for the parent element
+            var $parent = $(document),
+
+                // Object to store the mouse co-ordinates
+                mouse = {
+                    update: function (event) {
+                        this.x = event.pageX;
+                        this.y = event.pageY;
+                    }
+                };
+
+            var mouseDown = function (event) {
+                // Update the mouse coordinates
+                mouse.update(event);
+
+                if (!/^(relative|absolute)$/i.test($alert.css('position'))) {
+                    $alert.css('position', 'relative');
+                }
+
+                // Create a function expression, to reference in the 'mouseup.draggable' closure
+                var mouseMove = function (event) {
+                    $alert.css({
+                        left: (parseInt($alert.css('left')) || 0) + (event.pageX - mouse.x) + 'px',
+                        top: (parseInt($alert.css('top')) || 0) + (event.pageY - mouse.y) + 'px'
+                    });
+
+                    // Update the mouse coordinates
+                    mouse.update(event);
+
+                    event.preventDefault();
+                };
+
+                $parent.on('mousemove.bootstrap.growl', mouseMove);
+                $parent.one('mouseup.bootstrap.growl', function (event) {
+                    // 'mouseup' will automatically be unregistered, due to using .one()
+
+                    // Unregister the 'mousemove' event
+                    $parent.off('mousemove.bootstrap.growl', mouseMove);
+
+                });
+
+                event.preventDefault();
+            };
+
+            // Register an event for 'mousedown' on the alert only
+            $alert.on('mousedown.bootstrap.growl', mouseDown);
+
+            // When the alert is closed, unregister the 'mousemove' event
+            $alert.one('closed.bs.alert', function () {
+                // 'closed.bs.alert' will automatically be unregistered, due to using .one()
+
+                // Unregister the 'mouseDown' event
+                $parent.off('mousemove.bootstrap.growl', mouseDown);
+            });
+
+        }
+
         // Return the alert selector
         return $alert;
     };
@@ -202,11 +257,14 @@
 
         width: 250, // (number, 'auto')
 
+        // If true then a cross will be displayed in the alert
+        allow_dismiss: true, // (true, false)
+
         // Delay for on fade out
         delay: 4000, // (number)
 
-        // If true then a cross will be displayed in the alert
-        allow_dismiss: true, // (true, false)
+        // Whether the alert should be draggable
+        draggable: true,
 
         // Spacing between each new alert created
         stackup_spacing: 10 // (number)
