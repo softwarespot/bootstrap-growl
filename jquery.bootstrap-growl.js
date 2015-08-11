@@ -263,8 +263,8 @@
         // Delay for on fade out
         delay: 4000, // (number)
 
-        // Whether the alert should be draggable
-        draggable: true,
+        // Whether the alert should be draggable. CAUTION: Experimental feature
+        draggable: false,
 
         // Spacing between each new alert created
         stackup_spacing: 10 // (number)
