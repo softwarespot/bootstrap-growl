@@ -17,12 +17,16 @@
 
         // Set the default 'type' to null, if it's an invalid string
         if (!isString(options.type) || !/^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
+
             options.type = null;
+
         }
 
         // If the 'type' is set, then add the relevant alert-* class name
         if (options.type) {
+
             $alert.addClass('alert-' + options.type.toLowerCase());
+
         }
 
         // If the 'allow dismissal' is a boolean datatype and set to true, then add the relevant class and append a button element
@@ -56,15 +60,19 @@
 
         // Append the message to the alert. This could be HTML as well instead of a TEXT node
         if (message) {
+
             $alert.append(message);
+
         }
 
         // If the 'top offset' is set, then create an offset object literal. This is for backwards compatibility only
         if (options.top_offset) {
+
             options.offset = {
                 from: '',
                 amount: options.top_offset
             };
+
         }
 
         // Check if the options.offset is correctly formatted
@@ -84,13 +92,17 @@
 
         // For each element with the class name of '.bootstrap-growl', calculate the offset
         $('.bootstrap-growl').each(function () {
+
             $this = $(this);
             offsetAmount = Math.max(offsetAmount, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
+
         });
 
         // Set the default 'element' to 'body', if it's an invalid string
         if (!isString(options.element)) {
+
             options.element = 'body';
+
         }
 
         // Create a css object literal
@@ -115,7 +127,9 @@
 
         // Convert to uppercase for case-insensitive matching
         if (isString(options.align)) {
+
             options.align = options.align.toUpperCase();
+
         }
 
         // Apply the css styles with regards to alignment in the parent element
@@ -140,10 +154,12 @@
 
         // Create a delay on fade out if greater than zero
         if ($.isNumeric(options.delay) && options.delay > 0) {
+
             $alert.delay(options.delay)
                 .fadeOut(function () {
                 return $(this).alert('close');
             });
+
         }
 
         // Return the alert selector
