@@ -138,7 +138,8 @@
         // Display the alert by fading in
         $alert.fadeIn();
 
-        // Create a delay on fade out if greater than zero
+        // Create a delay on fade out if greater than zero,
+        // otherwise the alert will stay there indefinitely
         if ($.isNumeric(options.delay) && options.delay > 0) {
             $alert.delay(options.delay)
                 .fadeOut(function () {
@@ -149,7 +150,7 @@
         // If 'draggable' is boolean and has been set to true
         if (isBoolean(options.draggable) && options.draggable) {
 
-             // Object to store the mouse co-ordinates
+            // Object to store the mouse co-ordinates
             var mouse = {
                     update: function (event) {
                         this.x = event.pageX;
@@ -222,6 +223,7 @@
     };
 
     // Constants
+
     var events = {
         ALERT_CLOSED: 'closed.bs.alert',
         MOUSE_DOWN: 'mousedown.bootstrap.growl',
