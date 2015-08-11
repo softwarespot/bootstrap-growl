@@ -20,7 +20,7 @@
             options.element = 'body';
         }
 
-        // Set the default 'type' to null
+        // Set the default 'type' to null, if it's an invalid string
         if (options.type !== null || !isString(options.type) || !/^DANGER|INFO|SUCCESS$/i.test(options.type)) {
             options.type = null;
         }
@@ -30,8 +30,8 @@
             $alert.addClass('alert-' + options.type.toLowerCase());
         }
 
-        // If the 'allow dismissal' is set to true and is a boolean datatype, then add the relevant class and append a button element
-        if (isBooleanoptions.allow_dismiss() && options.allow_dismiss) {
+        // If the 'allow dismissal' is a boolean datatype and is set to true, then add the relevant class and append a button element
+        if (isBoolean(options.allow_dismiss) && options.allow_dismiss) {
             $alert.addClass('alert-dismissible');
             $alert.append('<button  class="close" data-dismiss="alert" type="button"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
         }
@@ -41,7 +41,7 @@
             $alert.append(message);
         }
 
-        // If the 'top offset' is set, then create an offset object literal. This is for backwards compatibility
+        // If the 'top offset' is set, then create an offset object literal. This is for backwards compatibility only
         if (options.top_offset) {
             options.offset = {
                 from: '',
