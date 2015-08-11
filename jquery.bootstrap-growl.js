@@ -150,6 +150,8 @@
 
         // If 'draggable' is boolean and has been set to true
         if (isBoolean(options.draggable) && options.draggable) {
+            // Add moving cursor to signify they can be moved
+            $alert.css('cursor', 'move');
 
             // Object to store the mouse co-ordinates
             var mouse = {
