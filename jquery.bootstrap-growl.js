@@ -10,36 +10,25 @@
         options = $.extend({}, $.bootstrapGrowl.options, options);
 
         // Create a temporary div element
-        var $alert = $('<div/>');
+        var $alert = $('<div/>')
 
-        // Add the following classes
-        $alert.addClass('bootstrap-growl alert');
-
-        // Set the default 'type' to null, if it's an invalid string
-        if (!isString(options.type) || !/^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
-
-            options.type = null;
-
-        }
+                    // Add the 'alert' and 'bootstrap-growl' classes for distingushing
+                    // other Bootstrap alerts
+                    .addClass('bootstrap-growl alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
-        if (options.type) {
-
+        if (isString(options.type) && !/^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
             $alert.addClass('alert-' + options.type.toLowerCase());
-
         }
 
         // If the 'allow dismissal' is a boolean datatype and set to true, then add the relevant class and append a button element
         if (isBoolean(options.allow_dismiss) && options.allow_dismiss) {
-
-            $alert.addClass('alert-dismissible');
-
             // Close button
             var $button = $('<button/>')
-                .attr('type', 'button')
-                .addClass('close')
-                .attr('data-dismiss', 'alert')
-                .attr('aria-label', 'Close'),
+                    .attr('type', 'button')
+                    .addClass('close')
+                    .attr('data-dismiss', 'alert')
+                    .attr('aria-label', 'Close'),
 
                 // The small 'x'
                 $cross = $('<span/>')
@@ -49,33 +38,30 @@
             // Append the cross to the button element
             $button.append($cross);
 
-            // Append the close button to the alert
-            $alert.append($button);
-
+            // Append the close button to the alert and add the class
+            // that it's dimissible
+            $alert.append($button)
+                .addClass('alert-dismissible');
         }
 
         // Append the message to the alert. This could be HTML as well instead of a TEXT node
         if (message) {
-
             $alert.append(message);
-
         }
 
         // If the 'top offset' is set, then create an offset object literal. This is for backwards compatibility only
         if (options.top_offset) {
-
             options.offset = {
                 from: '',
                 amount: options.top_offset
             };
-
         }
 
         // Check if the options.offset is correctly formatted
         options.offset.amount = $.isNumeric(options.offset.amount) ? options.offset.amount : 20;
-        options.offset.from = isString(options.offset.from) && /^TOP|BOTTOM$/i.test(options.type) ? options.offset.from : 'top';
+        options.offset.from = isString(options.offset.from) && /^TOP|BOTTOM$/i.test(options.offset.from) ? options.offset.from : 'top';
 
-        // Cache the jQuery object selector
+        // Cache the jQuery selector
         var $this = null,
 
             // Store the offset amount
@@ -88,24 +74,21 @@
 
         // For each element with the class name of '.bootstrap-growl', calculate the offset
         $('.bootstrap-growl').each(function () {
-
             $this = $(this);
             offsetAmount = Math.max(offsetAmount, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
-
         });
 
         // Set the default 'element' to 'body', if it's an invalid string
         if (!isString(options.element)) {
-
             options.element = 'body';
-
         }
 
         // Create a css object literal
         var css = {
-            'display': 'none',
-            'margin': 0,
-            'position': (options.element === 'body' ? 'fixed' : 'absolute'),
+            display: 'none',
+            margin: 0,
+            position: (options.element === 'body' ? 'fixed' : 'absolute'),
+            width: 'auto',
             'z-index': '9999'
         };
 
@@ -123,9 +106,7 @@
 
         // Convert to uppercase for case-insensitive matching
         if (isString(options.align)) {
-
             options.align = options.align.toUpperCase();
-
         }
 
         // Apply the css styles with regards to alignment in the parent element
@@ -150,16 +131,15 @@
 
         // Create a delay on fade out if greater than zero
         if ($.isNumeric(options.delay) && options.delay > 0) {
-
             $alert.delay(options.delay)
                 .fadeOut(function () {
                 return $(this).alert('close');
             });
-
         }
 
         // If draggable is boolean and has been set to true
         if (isBoolean(options.draggable) && options.draggable) {
+
             // Cache the jQuery object for the parent element
             var $parent = $(document),
 
@@ -168,7 +148,9 @@
                     update: function (event) {
                         this.x = event.pageX;
                         this.y = event.pageY;
-                    }
+                    },
+                    x: 0,
+                    y: 0
                 };
 
             var mouseDown = function (event) {
@@ -225,16 +207,12 @@
 
     // Check if value is a boolean datatype
     var isBoolean = function (value) {
-
         return $.type(value) === 'boolean';
-
     };
 
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
     var isString = function (value) {
-
         return $.type(value) === 'string' && value.trim().length > 0;
-
     };
 
     // Defaults
@@ -264,7 +242,7 @@
         delay: 4000, // (number)
 
         // Whether the alert should be draggable. CAUTION: Experimental feature
-        draggable: false,
+        draggable: true,
 
         // Spacing between each new alert created
         stackup_spacing: 10 // (number)
