@@ -1,5 +1,12 @@
 /* global jQuery */
 
+/*
+ * bootstrap-growl
+ * https://github.com/softwarespot/bootstrap-growl
+ * Author: softwarespot
+ * Licensed under the MIT license
+ * Version: 1.2.2
+ */
 ; (function ($, undefined) {
 
     // Plugin Logic
@@ -11,10 +18,9 @@
 
         // Create a temporary div element
         var $alert = $('<div/>')
-
-                    // Add the 'alert' and 'bootstrap-growl' classes for distingushing
-                    // other Bootstrap alerts
-                    .addClass('bootstrap-growl alert');
+            // Add the 'alert' and 'bootstrap-growl' classes for distinguishing
+            // other Bootstrap alerts
+            .addClass('bootstrap-growl alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
         if (isString(options.type) && /^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
@@ -101,8 +107,11 @@
         // Apply the css styles from above
         $alert.css(css);
 
+        // Get the parent jQuery selector
+        var $parent = $(options.element);
+
         // Append the alert to the parent element
-        $(options.element).append($alert);
+        $parent.append($alert);
 
         // Convert to uppercase for case-insensitive matching
         if (isString(options.align)) {
@@ -137,14 +146,11 @@
                 });
         }
 
-        // If draggable is boolean and has been set to true
+        // If 'draggable' is boolean and has been set to true
         if (isBoolean(options.draggable) && options.draggable) {
 
-            // Cache the jQuery object for the parent element
-            var $parent = $('body'),
-
-                // Object to store the mouse co-ordinates
-                mouse = {
+             // Object to store the mouse co-ordinates
+            var mouse = {
                     update: function (event) {
                         this.x = event.pageX;
                         this.y = event.pageY;
@@ -153,48 +159,60 @@
                     y: 0
                 };
 
+            // Create a function expression to reference at a later stage
             var mouseDown = function (event) {
-                // Update the mouse coordinates
-                mouse.update(event);
+                event.preventDefault();
 
-                if (!/^(relative|absolute)$/i.test($alert.css('position'))) {
+                // If not absolute, fixed or relative, then set the position to relative by default
+                if (!/^(absolute|fixed|relative)$/i.test($alert.css('position'))) {
                     $alert.css('position', 'relative');
                 }
 
-                // Create a function expression, to reference in the 'mouseup.draggable' closure
+                // Update the mouse coordinates
+                mouse.update(event);
+
+                // Create a function expression to reference at a later stage
                 var mouseMove = function (event) {
-                    $alert.css({
-                        left: (parseInt($alert.css('left')) || 0) + (event.pageX - mouse.x) + 'px',
-                        top: (parseInt($alert.css('top')) || 0) + (event.pageY - mouse.y) + 'px'
-                    });
+                    event.preventDefault();
+
+                    // Get the offset object relative to the document
+                    var offset = $alert.offset();
+
+                    // Set the offset of the alert element
+                    $alert.offset({
+                        left: (offset.left + (event.pageX - mouse.x)),
+                        top: (offset.top + (event.pageY - mouse.y))
+                     });
 
                     // Update the mouse coordinates
                     mouse.update(event);
-
-                    event.preventDefault();
                 };
 
-                $parent.on('mousemove.bootstrap.growl', mouseMove);
-                $parent.one('mouseup.bootstrap.growl', function (event) {
-                    // 'mouseup' will automatically be unregistered, due to using .one()
+                // Register an event for 'MOUSE_MOVE' on the parent element
+                $parent.on(events.MOUSE_MOVE, mouseMove);
 
-                    // Unregister the 'mousemove' event
-                    $parent.off('mousemove.bootstrap.growl', mouseMove);
+                // Tidy up registered events (good housekeeping)
 
+                // Register an event for 'MOUSE_UP' on the parent element
+                $parent.one(events.MOUSE_UP, function () {
+                    // 'MOUSE_UP' will automatically be unregistered, due to using .one()
+
+                    // Unregister the 'MOUSE_MOVE' event
+                    $parent.off(events.MOUSE_MOVE, mouseMove);
                 });
-
-                event.preventDefault();
             };
 
-            // Register an event for 'mousedown' on the alert only
-            $alert.on('mousedown.bootstrap.growl', mouseDown);
+            // Register an event for 'MOUSE_DOWN' on the alert
+            $alert.on(events.MOUSE_DOWN, mouseDown);
 
-            // When the alert is closed, unregister the 'mousemove' event
-            $alert.one('closed.bs.alert', function () {
-                // 'closed.bs.alert' will automatically be unregistered, due to using .one()
+            // Tidy up registered events (good housekeeping)
 
-                // Unregister the 'mouseDown' event
-                $parent.off('mousemove.bootstrap.growl', mouseDown);
+            // When the alert is closed, unregister the 'ALERT_CLOSED' event
+            $alert.one(events.ALERT_CLOSED, function () {
+                // 'ALERT_CLOSED' will automatically be unregistered, due to using .one()
+
+                // Unregister the 'MOUSE_DOWN' event applied to the parent element
+                $alert.off(events.MOUSE_DOWN, mouseDown);
             });
 
         }
@@ -202,6 +220,16 @@
         // Return the alert selector
         return $alert;
     };
+
+    // Constants
+    var events = {
+        ALERT_CLOSED: 'closed.bs.alert',
+        MOUSE_DOWN: 'mousedown.bootstrap.growl',
+        MOUSE_MOVE: 'mousemove.bootstrap.growl',
+        MOUSE_UP: 'mouseup.bootstrap.growl'
+    };
+
+    // Fields
 
     // Methods (Private)
 
@@ -236,10 +264,10 @@
         width: 250, // (number, 'auto')
 
         // If true then a cross will be displayed in the alert
-        allow_dismiss: true, // (true, false)
+        allow_dismiss: false, // (true, false)
 
         // Delay for on fade out
-        delay: 10000, // (number)
+        delay: 4000, // (number)
 
         // Whether the alert should be draggable. CAUTION: Experimental feature
         draggable: true,
