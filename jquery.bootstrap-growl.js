@@ -15,11 +15,6 @@
         // Add the following classes
         $alert.addClass('bootstrap-growl alert');
 
-        // Set the default 'element' to 'body', if it's an invalid string
-        if (!isString(options.element)) {
-            options.element = 'body';
-        }
-
         // Set the default 'type' to null, if it's an invalid string
         if (!isString(options.type) || !/^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
             options.type = null;
@@ -30,13 +25,36 @@
             $alert.addClass('alert-' + options.type.toLowerCase());
         }
 
-        // If the 'allow dismissal' is a boolean datatype and is set to true, then add the relevant class and append a button element
+        // If the 'allow dismissal' is a boolean datatype and set to true, then add the relevant class and append a button element
         if (isBoolean(options.allow_dismiss) && options.allow_dismiss) {
+
             $alert.addClass('alert-dismissible');
-            $alert.append('<button  class="close" data-dismiss="alert" type="button"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+
+            // Close button
+            var $button = $('<button/>')
+                .attr('type', 'button')
+                .addClass('close')
+                .attr('data-dismiss', 'alert'),
+
+                // The small 'x'
+                $cross = $('<span/>')
+                    .attr('aria-hidden', 'true')
+                    .html('&times;'),
+
+                $close = $('<span/>')
+                    .addClass('sr-only')
+                    .html('Close');
+
+            // Append both elements to the close button
+            $button.append($cross);
+            $button.append($close);
+
+            // Append the close button to the alert
+            $alert.append($button);
+
         }
 
-        // Append the message to the alert
+        // Append the message to the alert. This could be HTML as well instead of a TEXT node
         if (message) {
             $alert.append(message);
         }
@@ -70,6 +88,11 @@
             offsetAmount = Math.max(offsetAmount, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
         });
 
+        // Set the default 'element' to 'body', if it's an invalid string
+        if (!isString(options.element)) {
+            options.element = 'body';
+        }
+
         // Create a css object literal
         var css = {
             'display': 'none',
@@ -95,7 +118,7 @@
             options.align = options.align.toUpperCase();
         }
 
-        // Apply the css styles with regardless to alignment in the parent element
+        // Apply the css styles with regards to alignment in the parent element
         switch (options.align) {
             case 'CENTER':
                 $alert.css({
@@ -123,6 +146,7 @@
             });
         }
 
+        // Return the alert selector
         return $alert;
     };
 
@@ -162,13 +186,13 @@
 
         width: 250, // (number, 'auto')
 
-        // Delay for the alert closing
+        // Delay for on fade out
         delay: 4000, // (number)
 
         // If true then a cross will be displayed in the alert
         allow_dismiss: true, // (true, false)
 
-        // Spacing between each new alert
+        // Spacing between each new alert created
         stackup_spacing: 10 // (number)
     };
 
