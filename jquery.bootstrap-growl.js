@@ -153,12 +153,12 @@
 
             // Object to store the mouse co-ordinates
             var mouse = {
+                    x: 0,
+                    y: 0,
                     update: function (event) {
                         this.x = event.pageX;
                         this.y = event.pageY;
-                    },
-                    x: 0,
-                    y: 0
+                    }
                 };
 
             // Create a function expression to reference at a later stage
