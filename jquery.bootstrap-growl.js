@@ -238,12 +238,16 @@
 
     // Check if value is a boolean datatype
     var isBoolean = function (value) {
+
         return $.type(value) === 'boolean';
+
     };
 
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
     var isString = function (value) {
+
         return $.type(value) === 'string' && value.trim().length > 0;
+
     };
 
     // Defaults
@@ -269,11 +273,11 @@
         // If true then a cross will be displayed in the alert
         allow_dismiss: true, // (true, false)
 
-        // Delay for on fade out
-        delay: 4000, // (number)
+        // Delay for on fade out in milliseconds
+        delay: 5000, // (number)
 
-        // Whether the alert should be draggable. CAUTION: Experimental feature
-        draggable: true,
+        // Whether the alert should be draggable
+        draggable: true, // (true, false)
 
         // Spacing between each new alert created
         stackup_spacing: 10 // (number)
