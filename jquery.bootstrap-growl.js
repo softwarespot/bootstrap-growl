@@ -17,7 +17,7 @@
                     .addClass('bootstrap-growl alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
-        if (isString(options.type) && !/^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
+        if (isString(options.type) && /^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
             $alert.addClass('alert-' + options.type.toLowerCase());
         }
 
@@ -133,15 +133,15 @@
         if ($.isNumeric(options.delay) && options.delay > 0) {
             $alert.delay(options.delay)
                 .fadeOut(function () {
-                return $(this).alert('close');
-            });
+                    return $(this).alert('close');
+                });
         }
 
         // If draggable is boolean and has been set to true
         if (isBoolean(options.draggable) && options.draggable) {
 
             // Cache the jQuery object for the parent element
-            var $parent = $(document),
+            var $parent = $('body'),
 
                 // Object to store the mouse co-ordinates
                 mouse = {
@@ -239,7 +239,7 @@
         allow_dismiss: true, // (true, false)
 
         // Delay for on fade out
-        delay: 4000, // (number)
+        delay: 10000, // (number)
 
         // Whether the alert should be draggable. CAUTION: Experimental feature
         draggable: true,
