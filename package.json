@@ -1,0 +1,13 @@
+{
+    "name" : "bootstrap-growl",
+    "version" : "1.2.0",
+    "license": "MIT",
+    "repository": "https://github.com/softwarespot/bootstrap-growl.git",
+    "devDependencies" : {
+        "grunt" :                       "latest",
+        "grunt-contrib-uglify":         "*",
+        "grunt-contrib-jshint":         "*",
+        "grunt-contrib-watch":          "*",
+        "matchdep":                     "*"
+    }
+}
