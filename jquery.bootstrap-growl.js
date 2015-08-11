@@ -21,8 +21,8 @@
         }
 
         // Set the default 'type' to null, if it's an invalid string
-        if (options.type !== null || !isString(options.type) || !/^DANGER|INFO|SUCCESS$/i.test(options.type)) {
-            options.type = null;
+        if (!isString(options.type) || !/^DANGER|INFO|SUCCESS$/i.test(options.type)) {
+            options.type = 'success';
         }
 
         // If the 'type' is set, then add the relevant alert-* class name
