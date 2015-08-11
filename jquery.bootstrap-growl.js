@@ -20,7 +20,7 @@
         var $alert = $('<div/>')
             // Add the 'alert' and 'bootstrap-growl' classes for distinguishing
             // other Bootstrap alerts
-            .addClass('bootstrap-growl alert fade in')
+            .addClass('bootstrap-growl alert')
             .attr('role', 'alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
@@ -136,14 +136,14 @@
                 $alert.css('right', '20px');
         }
 
-        // Display the alert by fading in
-        $alert.fadeIn();
+        // Display the alert
+        $alert.fadeIn('fast');
 
         // Create a delay on fade out if greater than zero,
         // otherwise the alert will stay there indefinitely
         if ($.isNumeric(options.delay) && options.delay > 0) {
             $alert.delay(options.delay)
-                .fadeOut(function () {
+                .fadeOut('slow', function () {
                     return $(this).alert('close');
                 });
         }
@@ -267,7 +267,7 @@
         width: 250, // (number, 'auto')
 
         // If true then a cross will be displayed in the alert
-        allow_dismiss: false, // (true, false)
+        allow_dismiss: true, // (true, false)
 
         // Delay for on fade out
         delay: 4000, // (number)
