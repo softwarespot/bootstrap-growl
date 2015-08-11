@@ -20,7 +20,8 @@
         var $alert = $('<div/>')
             // Add the 'alert' and 'bootstrap-growl' classes for distinguishing
             // other Bootstrap alerts
-            .addClass('bootstrap-growl alert');
+            .addClass('bootstrap-growl alert fade in')
+            .attr('role', 'alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
         if (isString(options.type) && /^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
