@@ -1,45 +1,54 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>jquery.bootstrap-growl Demo</title>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
-    </head>
-    <body>
+<html lang="en">
 
-        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="jquery.bootstrap-growl.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <title>jquery.bootstrap-growl Example</title>
 
-        <script>
+    <!--Mobile Specific Metas-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-            $(function() {
+    <!--Stylesheets-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+</head>
 
-                $.bootstrapGrowl('This is a simple growl with default options');
+<body>
 
-                setTimeout(function() {
-                    $.bootstrapGrowl('This is a growl with the type as "success"', { type: 'success' });
-                }, 1000);
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="jquery.bootstrap-growl.js"></script>
 
-                setTimeout(function() {
-                    $.bootstrapGrowl('This is a growl with the multiple options', {
-                        type: 'danger',
-                        align: 'center',
-                        width: 'auto',
-                        allow_dismiss: false
-                    });
-                }, 2000);
+    <script>
+        $(function() {
 
-                setTimeout(function() {
-                    $.bootstrapGrowl('This is another growl with the multiple options', {
-                        type: 'info',
-                        align: 'left',
-                        stackup_spacing: 30
-                    });
-                }, 3000);
+            $.bootstrapGrowl('This is a simple growl with default options');
 
-            });
+            setTimeout(function() {
+                $.bootstrapGrowl('This is a growl with the type as "success"', {
+                    type: 'success'
+                });
+            }, 1000);
 
-        </script>
+            setTimeout(function() {
+                $.bootstrapGrowl('This is a growl with the multiple options', {
+                    type: 'danger',
+                    align: 'center',
+                    width: 'auto',
+                    allow_dismiss: false
+                });
+            }, 2000);
 
-    </body>
+            setTimeout(function() {
+                $.bootstrapGrowl('This is another growl with the multiple options', {
+                    type: 'info',
+                    align: 'left',
+                    stackup_spacing: 30
+                });
+            }, 3000);
+
+        });
+    </script>
+
+</body>
+
 </html>
