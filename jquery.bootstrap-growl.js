@@ -85,6 +85,11 @@
             offsetAmount = Math.max(offsetAmount, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
         });
 
+        // Workaround for changing ele to element
+        if (isString(options.ele)) {
+            options.element = options.ele;
+        }
+
         // Set the default 'element' to 'body', if it's an invalid string
         if (!isString(options.element)) {
             options.element = 'body';
