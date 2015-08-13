@@ -1,43 +1,25 @@
 
 module.exports = function(grunt) {
 
-    // load all grunt tasks
+    // Load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
 
-        // watch for changes and trigger compass, jshint, uglify and livereload
+        // Watch for changes to the main file to trigger uglification and hinting
         watch: {
             js: {
-                files: ['jquery.bootstrap-growl.js'],
-                tasks: ['uglify','jshint'],
+                files: ['jquery.boostrap-growl.js'],
+                tasks: ['jshint', 'uglify'],
                 options: {
                     livereload: true,
                 },
             }
         },
 
-        // uglify to concat & minify
-        uglify: {
-            js: {
-                files: {
-                    'jquery.bootstrap-growl.min.js': 'jquery.bootstrap-growl.js',
-                },
-                options: {
-                    compress: {
-                        comparisons: true,
-                        conditionals: true,
-                        dead_code: true,
-                        drop_console: true,
-                        unsafe: true,
-                        unused: true
-                    }
-                }
-            }
-        },
-
+        // Check the code meets the following standards
         jshint: {
-            all: ['jquery.bootstrap-growl.js'],
+            all: ['jquery.boostrap-growl.js'],
             options: {
                 curly: true,
                 eqeqeq: true,
@@ -50,10 +32,33 @@ module.exports = function(grunt) {
                   '$': true
                 }
             }
-        }
+        },
+
+        // Uglify aka minify the main file
+        uglify: {
+            js: {
+                files: {
+                    'jquery.boostrap-growl.min.js': 'jquery.boostrap-growl.js',
+                },
+                options: {
+                    // See the uglify documentation for more details
+                    compress: {
+                        comparisons: true,
+                        conditionals: true,
+                        dead_code: true,
+                        drop_console: true,
+                        unsafe: true,
+                        unused: true
+                    }
+                }
+            }
+        },
 
     });
 
-    // register task
+    // Register the default task to watch for any changes to the main files
     grunt.registerTask('default', ['watch']);
+
+    // 'grunt jshint' to check the syntax
+    // 'grunt uglify' to uglify the main file
 };
