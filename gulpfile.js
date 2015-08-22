@@ -8,19 +8,19 @@ var del = require('del');
 
 // Clean the current directory
 gulp.task('clean', function (cb) {
-    del(['jquery-bootstrap-growl.min.js'], cb);
+    del(['jquery.bootstrap-growl.min.js'], cb);
 });
 
 // Check the code meets the following standards outlined in .jshintrc
 gulp.task('jshint', function () {
-    return gulp.src('./jquery-bootstrap-growl.js')
+    return gulp.src('./jquery.bootstrap-growl.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
 
 // Uglify aka minify the main file
 gulp.task('uglify', ['clean'], function () {
-    return gulp.src('./jquery-bootstrap-growl.js')
+    return gulp.src('./jquery.bootstrap-growl.js')
         .pipe(uglify({
             // See the uglify documentation for more details
             compress: {
@@ -32,13 +32,13 @@ gulp.task('uglify', ['clean'], function () {
                 unused: true
             }
         }))
-        .pipe(rename('jquery-bootstrap-growl.min.js'))
+        .pipe(rename('jquery.bootstrap-growl.min.js'))
         .pipe(gulp.dest('./'));
 });
 
 // Watch for changes to the main file to trigger hinting and minification
 gulp.task('watch', function () {
-    gulp.watch('./jquery-bootstrap-growl.js', ['jshint', 'uglify']);
+    gulp.watch('./jquery.bootstrap-growl.js', ['jshint', 'uglify']);
 });
 
 // Register the default task to hinting and minification
