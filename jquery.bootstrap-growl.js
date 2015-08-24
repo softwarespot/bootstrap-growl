@@ -198,30 +198,30 @@
                 };
 
                 // Register an event for 'MOUSE_MOVE' on the parent element
-                $parent.on(events.MOUSE_MOVE, mouseMove);
+                $parent.on(Events.MOUSE_MOVE, mouseMove);
 
                 // Tidy up registered events (good housekeeping)
 
                 // Register an event for 'MOUSE_UP' on the parent element
-                $parent.one(events.MOUSE_UP, function () {
+                $parent.one(Events.MOUSE_UP, function () {
                     // 'MOUSE_UP' will automatically be unregistered, due to using .one()
 
                     // Unregister the 'MOUSE_MOVE' event
-                    $parent.off(events.MOUSE_MOVE, mouseMove);
+                    $parent.off(Events.MOUSE_MOVE, mouseMove);
                 });
             };
 
             // Register an event for 'MOUSE_DOWN' on the alert
-            $alert.on(events.MOUSE_DOWN, mouseDown);
+            $alert.on(Events.MOUSE_DOWN, mouseDown);
 
             // Tidy up registered events (good housekeeping)
 
             // When the alert is closed, unregister the 'ALERT_CLOSED' event
-            $alert.one(events.ALERT_CLOSED, function () {
+            $alert.one(Events.ALERT_CLOSED, function () {
                 // 'ALERT_CLOSED' will automatically be unregistered, due to using .one()
 
                 // Unregister the 'MOUSE_DOWN' event applied to the parent element
-                $alert.off(events.MOUSE_DOWN, mouseDown);
+                $alert.off(Events.MOUSE_DOWN, mouseDown);
             });
 
         }
@@ -232,10 +232,17 @@
 
     // Constants
 
-    var events = {
+    var Events = {
+        // Fired by Bootstrap when the alert has finally closed
         ALERT_CLOSED: 'closed.bs.alert',
+
+        // When the primary mouse button is pushed down on the alert
         MOUSE_DOWN: 'mousedown.bootstrap.growl',
+
+        // When the mouse is moved whilst the primary mouse button is down. This is only created 'MOUSE_DOWN' is invoked
         MOUSE_MOVE: 'mousemove.bootstrap.growl',
+
+        // When the primary mouse button is released. This is only called once using .one()
         MOUSE_UP: 'mouseup.bootstrap.growl'
     };
 
