@@ -32,15 +32,15 @@
         if (isBoolean(options.allow_dismiss) && options.allow_dismiss) {
             // Close button
             var $button = $('<button/>')
-                    .attr('type', 'button')
-                    .addClass('close')
-                    .attr('data-dismiss', 'alert')
-                    .attr('aria-label', 'Close'),
+                .attr('type', 'button')
+                .addClass('close')
+                .attr('data-dismiss', 'alert')
+                .attr('aria-label', 'Close');
 
-                // The small 'x'
-                $cross = $('<span/>')
-                    .attr('aria-hidden', 'true')
-                    .html('&times;');
+            // The small 'x'
+            var $cross = $('<span/>')
+                .attr('aria-hidden', 'true')
+                .html('&times;');
 
             // Append the cross to the button element
             $button.append($cross);
@@ -69,10 +69,10 @@
         options.offset.from = isString(options.offset.from) && /^TOP|BOTTOM$/i.test(options.offset.from) ? options.offset.from : 'top';
 
         // Cache the jQuery selector
-        var $this = null,
+        var $this = null;
 
-            // Store the offset amount
-            offsetAmount = options.offset.amount;
+        // Store the offset amount
+        var offsetAmount = options.offset.amount;
 
         // If 'stack spacing' is not numeric, then set the default to 10
         if (!$.isNumeric(options.stackup_spacing)) {
@@ -107,7 +107,7 @@
         css[options.offset.from] = offsetAmount + 'px';
 
         if (options.width !== 'auto' && $.isNumeric(options.width)) {
-           css.width = options.width + 'px';
+            css.width = options.width + 'px';
         }
 
         // Apply the css styles from above
@@ -160,13 +160,13 @@
 
             // Object to store the mouse co-ordinates
             var mouse = {
-                    x: 0,
-                    y: 0,
-                    update: function (event) {
-                        this.x = event.pageX;
-                        this.y = event.pageY;
-                    }
-                };
+                x: 0,
+                y: 0,
+                update: function (event) {
+                    this.x = event.pageX;
+                    this.y = event.pageY;
+                }
+            };
 
             // Create a function expression to reference at a later stage
             var mouseDown = function (event) {
@@ -191,7 +191,7 @@
                     $alert.offset({
                         left: (offset.left + (event.pageX - mouse.x)),
                         top: (offset.top + (event.pageY - mouse.y))
-                     });
+                    });
 
                     // Update the mouse coordinates
                     mouse.update(event);
@@ -251,18 +251,18 @@
     // Methods (Private)
 
     // Check if value is a boolean datatype
-    var isBoolean = function (value) {
+    function isBoolean(value) {
 
         return $.type(value) === 'boolean';
 
-    };
+    }
 
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
-    var isString = function (value) {
+    function isString(value) {
 
         return $.type(value) === 'string' && value.trim().length > 0;
 
-    };
+    }
 
     // Defaults
 
