@@ -7,7 +7,8 @@
  * Licensed under the MIT license
  * Version: 1.2.2
  */
-; (function ($, undefined) {
+; // jshint ignore:line
+(function ($, undefined) {
 
     // Plugin Logic
 
