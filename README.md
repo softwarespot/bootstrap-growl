@@ -1,5 +1,7 @@
 #bootstrap-growl
 
+## This `fork` has now been published as its own plugin, aptly called [bootstrapPurr](https://github.com/softwarespot/jquery-bootstrap-purr). It includes multiple fixes that are outside the scope of this plugin.
+
 A simple jQuery plugin that turns standard Bootstrap alerts into hovering "Growl-like" notifications.
 
 ## Demo
