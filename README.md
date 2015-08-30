@@ -33,10 +33,10 @@ By default, growls use the standard 'alert' Bootstrap style, which are 250px wid
 
 ```javascript
     $.bootstrapGrowl('Diplay a short but simple message here', {
-        // Default parent element to append to
+        // Default parent element to append the alert to
         element: 'body',
 
-        // Type of alert
+        // Type of alert. See Bootstrap documentation for any additional supported formats
         type: 'info', // (null|'default', 'info', 'danger', 'success')
 
         // Alert offset
@@ -48,18 +48,19 @@ By default, growls use the standard 'alert' Bootstrap style, which are 250px wid
         // Alignment relative to the parent element
         align: 'right', // ('left', 'right', 'center')
 
+        // With of the alert. The default is 250px, which is the same as Bootstrap's alerts
         width: 250, // (number, 'auto')
 
-        // If true then a cross will be displayed in the alert
+        // If true then a cross will be displayed in the top right hand corner of the alert
         allow_dismiss: true, // (true, false)
 
-        // Delay for on fade out in milliseconds
+        // Delay for 'on fade out' in milliseconds
         delay: 5000, // (number)
 
-        // Whether the alert should be draggable
+        // Whether the alert should be draggable using the primary mouse button
         draggable: true, // (true, false)
 
-        // Spacing between each new alert created
+        // Spacing between each new alert that is created
         stackup_spacing: 10 // (number)
     });
 ```

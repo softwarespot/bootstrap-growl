@@ -106,7 +106,7 @@
         };
 
         // Set the css property i.e. top or bottom, with the offset total
-        css[options.offset.from] = offsetTotal + 'px';
+        css[options.offset.from] = offsetAmount + 'px';
 
         if (options.width !== 'auto' && $.isNumeric(options.width)) {
             css.width = options.width + 'px';
