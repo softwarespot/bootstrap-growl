@@ -288,7 +288,7 @@
     // Defaults
 
     $.bootstrapGrowl.options = {
-        // Default parent element to append the alert to
+        // Default parent element to append the alert to. Previously known as ele, which is still supported
         element: 'body',
 
         // Type of alert. See Bootstrap documentation for any additional supported formats

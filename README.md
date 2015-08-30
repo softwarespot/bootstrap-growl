@@ -2,6 +2,17 @@
 
 ## This `fork` has now been published as its own plugin, aptly called [bootstrapPurr](https://github.com/softwarespot/jquery-bootstrap-purr). It includes multiple fixes that are outside the scope of this plugin.
 
+If you are interested in this `fork`, then the differences between that of the `master`branch and this:
+
+- Added 'draggable' option
+- Added bower.json, for use with bower e.g. bower install git://github.com/softwarespot/bootstrap-growl.git
+- Added gulp for minifying and JSHinting
+- Added minified version
+- Fixed JSHint errors
+- Performance enhancements
+- Rewrote entire module again
+
+
 A simple jQuery plugin that turns standard Bootstrap alerts into hovering "Growl-like" notifications.
 
 ## Demo
