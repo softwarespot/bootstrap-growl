@@ -38,7 +38,7 @@
                 .attr('data-dismiss', 'alert')
                 .attr('aria-label', 'Close');
 
-            // The small 'x'
+            // The small 'x' in the top right hand corner
             var $cross = $('<span/>')
                 .attr('aria-hidden', 'true')
                 .html('&times;');
@@ -47,12 +47,12 @@
             $button.append($cross);
 
             // Append the close button to the alert and add the class
-            // that it's dimissible
+            // that specifies it's dimissible
             $alert.append($button)
                 .addClass('alert-dismissible');
         }
 
-        // Append the message to the alert. This could be HTML as well instead of a TEXT node
+        // Append the message to the alert. This could be HTML or simple a TEXT node
         if (message) {
             $alert.append(message);
         }
@@ -105,7 +105,8 @@
             'z-index': '9999'
         };
 
-        css[options.offset.from] = offsetAmount + 'px';
+        // Set the css property i.e. top or bottom, with the offset total
+        css[options.offset.from] = offsetTotal + 'px';
 
         if (options.width !== 'auto' && $.isNumeric(options.width)) {
             css.width = options.width + 'px';
@@ -158,6 +159,7 @@
             var mouse = {
                 x: 0,
                 y: 0,
+                // Update function
                 update: function (event) {
                     this.x = event.pageX;
                     this.y = event.pageY;
@@ -228,21 +230,20 @@
         // Create a delay on fade out if greater than zero,
         // otherwise the alert will stay there indefinitely
         if ($.isNumeric(options.delay) && options.delay > 0) {
-            $alert.delay(options.delay)
-                .fadeOut('slow', function () {
-                    // Unregister events
-                    if (options.draggable) {
-                        // Tidy up registered events (good housekeeping)
+            $alert.delay(options.delay).fadeOut('slow', function () {
+                // Unregister events
+                if (options.draggable) {
+                    // Tidy up registered events (good housekeeping)
 
-                        // Unregister the 'MOUSE_MOVE' event
-                        $parent.off(Events.MOUSE_MOVE, mouseMove);
+                    // Unregister the 'MOUSE_MOVE' event
+                    $parent.off(Events.MOUSE_MOVE, mouseMove);
 
-                        // Unregister the 'MOUSE_DOWN' event applied to the parent element
-                        $alert.off(Events.MOUSE_DOWN, mouseDown);
-                    }
+                    // Unregister the 'MOUSE_DOWN' event applied to the parent element
+                    $alert.off(Events.MOUSE_DOWN, mouseDown);
+                }
 
-                    return $alert.alert('close');
-                });
+                return $alert.alert('close');
+            });
         }
 
         // Return the alert selector
@@ -279,17 +280,18 @@
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
     function isString(value) {
 
-        return $.type(value) === 'string' && value.trim().length > 0;
+        return $.type(value) === 'string' && value.trim()
+            .length > 0;
 
     }
 
     // Defaults
 
     $.bootstrapGrowl.options = {
-        // Default parent element to append to
+        // Default parent element to append the alert to
         element: 'body',
 
-        // Type of alert
+        // Type of alert. See Bootstrap documentation for any additional supported formats
         type: 'info', // (null|'default', 'info', 'danger', 'success')
 
         // Alert offset
@@ -301,18 +303,19 @@
         // Alignment relative to the parent element
         align: 'right', // ('left', 'right', 'center')
 
+        // With of the alert. The default is 250px, which is the same as Bootstrap's alerts
         width: 250, // (number, 'auto')
 
-        // If true then a cross will be displayed in the alert
+        // If true then a cross will be displayed in the top right hand corner of the alert
         allow_dismiss: true, // (true, false)
 
-        // Delay for on fade out in milliseconds
+        // Delay for 'on fade out' in milliseconds
         delay: 5000, // (number)
 
-        // Whether the alert should be draggable
+        // Whether the alert should be draggable using the primary mouse button
         draggable: true, // (true, false)
 
-        // Spacing between each new alert created
+        // Spacing between each new alert that is created
         stackup_spacing: 10 // (number)
     };
 
