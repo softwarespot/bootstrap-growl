@@ -11,7 +11,7 @@ If you are interested in this `fork`, then the differences between that of the `
 - Fixed JSHint errors
 - Performance enhancements
 - Rewrote entire module again
-
+- Removed CoffeeScript, because ES5 isn't that difficult to use
 
 A simple jQuery plugin that turns standard Bootstrap alerts into hovering "Growl-like" notifications.
 
