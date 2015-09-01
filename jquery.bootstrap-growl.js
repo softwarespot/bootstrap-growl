@@ -1,5 +1,3 @@
-/* global jQuery */
-
 /*
  * bootstrap-growl
  * https://github.com/softwarespot/bootstrap-growl
