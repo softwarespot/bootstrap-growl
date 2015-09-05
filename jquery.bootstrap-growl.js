@@ -270,17 +270,12 @@
 
     // Check if value is a boolean datatype
     function isBoolean(value) {
-
         return $.type(value) === 'boolean';
-
     }
 
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
     function isString(value) {
-
-        return $.type(value) === 'string' && value.trim()
-            .length > 0;
-
+        return $.type(value) === 'string' && value.trim().length > 0;
     }
 
     // Defaults
