@@ -312,4 +312,4 @@
         stackup_spacing: 10 // (number)
     };
 
-})(jQuery);
+})(this.jQuery);
