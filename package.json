@@ -2,7 +2,10 @@
   "name": "bootstrap-growl",
   "version": "1.2.2",
   "license": "MIT",
-  "repository": "https://github.com/softwarespot/bootstrap-growl.git",
+  "repository": {
+   "type": "git",
+   "url": "https://github.com/softwarespot/bootstrap-growl.git"
+  },
   "devDependencies": {
     "del": "~1.2.1",
     "gulp": "~3.9.0",
