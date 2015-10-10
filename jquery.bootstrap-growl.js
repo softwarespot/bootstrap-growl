@@ -10,7 +10,7 @@
 
     // Plugin Logic
 
-    $.bootstrapGrowl = function (message, options) {
+    $.bootstrapGrowl = function bootstrapGrowl(message, options) {
         // Set our options from the defaults, overriding with the
         // parameter we pass into this function
         options = $.extend({}, $.bootstrapGrowl.options, options);
@@ -79,7 +79,7 @@
         }
 
         // For each element with the class name of '.bootstrap-growl', calculate the offset
-        $('.bootstrap-growl').each(function () {
+        $('.bootstrap-growl').each(function eachGrowl() {
             $this = $(this);
             offsetAmount = Math.max(offsetAmount, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
         });
@@ -158,14 +158,14 @@
                 x: 0,
                 y: 0,
                 // Update function
-                update: function (event) {
+                update: function update(event) {
                     this.x = event.pageX;
                     this.y = event.pageY;
                 }
             };
 
             // Create a function expression to reference at a later stage
-            mouseDown = function (event) {
+            mouseDown = function mouseDown(event) {
                 event.preventDefault();
 
                 // If not absolute, fixed or relative, then set the position to relative by default
@@ -177,7 +177,7 @@
                 mouse.update(event);
 
                 // Create a function expression to reference at a later stage
-                mouseMove = function (event) {
+                mouseMove = function mouseMove(event) {
                     event.preventDefault();
 
                     // Get the offset object relative to the document
@@ -199,7 +199,7 @@
                 // Tidy up registered events (good housekeeping)
 
                 // Register an event for 'MOUSE_UP' on the parent element
-                $parent.one(Events.MOUSE_UP, function () {
+                $parent.one(Events.MOUSE_UP, function mouseUpOne() {
                     // 'MOUSE_UP' will automatically be unregistered, due to using .one()
 
                     // Unregister the 'MOUSE_MOVE' event
@@ -213,7 +213,7 @@
             // Tidy up registered events (good housekeeping)
 
             // When the alert is closed, unregister the 'ALERT_CLOSED' event
-            $alert.one(Events.ALERT_CLOSED, function () {
+            $alert.one(Events.ALERT_CLOSED, function alertClosedOne() {
                 // 'ALERT_CLOSED' will automatically be unregistered, due to using .one()
 
                 // Unregister the 'MOUSE_DOWN' event applied to the parent element
@@ -228,7 +228,7 @@
         // Create a delay on fade out if greater than zero,
         // otherwise the alert will stay there indefinitely
         if ($.isNumeric(options.delay) && options.delay > 0) {
-            $alert.delay(options.delay).fadeOut('slow', function () {
+            $alert.delay(options.delay).fadeOut('slow', function fadeOut() {
                 // Unregister events
                 if (options.draggable) {
                     // Tidy up registered events (good housekeeping)
