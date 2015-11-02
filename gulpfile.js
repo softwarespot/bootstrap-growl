@@ -5,7 +5,6 @@ var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
 var uglify = require('gulp-uglify');
-var del = require('del');
 var fs = require('fs');
 var merge = require('merge2');
 
@@ -14,33 +13,30 @@ var uglifySettings = {
     compress: {
         comparisons: true,
         conditionals: true,
+        /* jscs: disable */
         dead_code: true,
         drop_console: true,
+        /* jscs: enable */
         unsafe: true,
-        unused: true
-    }
+        unused: true,
+    },
 };
 
 // Assets for the project
 var Assets = {
     main: 'jquery.bootstrap-growl.js',
-    minified: 'jquery.bootstrap-growl.min.js'
+    minified: 'jquery.bootstrap-growl.min.js',
 };
 
-// Clean the current directory
-gulp.task('clean', function (cb) {
-    del([Assets.minified], cb);
-});
-
 // Check the code meets the following standards outlined in .jshintrc
-gulp.task('jshint', function () {
+gulp.task('jshint', function() {
     return gulp.src('./' + Assets.main)
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
 // Uglify aka minify the main file
-gulp.task('uglify', ['clean'], function () {
+gulp.task('uglify', ['clean'], function() {
     return gulp.src('./' + Assets.main)
         .pipe(uglify(uglifySettings))
         .pipe(rename(Assets.minified))
@@ -48,13 +44,14 @@ gulp.task('uglify', ['clean'], function () {
 });
 
 // Update version numbers based on the main file version comment
-gulp.task('version', function () {
+gulp.task('version', function() {
     // SemVer matching is done using (?:\d+\.){2}\d+
 
     var reVersion = /\n\s*\*\s+Version:\s+((?:\d+\.){2}\d+)/;
     var version = fs.readFileSync('./' + Assets.main, {
-            encoding: 'utf8'
+            encoding: 'utf8',
         })
+
         // Match is found in the 2nd element
         .match(reVersion)[1];
 
@@ -78,7 +75,7 @@ gulp.task('version', function () {
 });
 
 // Watch for changes to the main file
-gulp.task('watch', function () {
+gulp.task('watch', function() {
     gulp.watch('./' + Assets.main, ['jshint', 'uglify']);
 });
 

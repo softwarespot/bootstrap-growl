@@ -6,7 +6,7 @@
  * Version: 1.2.2
  */
 ; // jshint ignore:line
-(function ($, undefined) {
+(function bootstrapGrowlNamespace($, undefined) {
 
     // Plugin Logic
 
@@ -17,18 +17,19 @@
 
         // Create a temporary div element
         var $alert = $('<div/>')
-            // Add the 'alert' and 'bootstrap-growl' classes for distinguishing
-            // other Bootstrap alerts
-            .addClass('bootstrap-growl alert')
-            .attr('role', 'alert');
+
+        // Add the 'alert' and 'bootstrap-growl' classes for distinguishing
+        // other Bootstrap alerts
+        .addClass('bootstrap-growl alert')
+        .attr('role', 'alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
-        if (isString(options.type) && /^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
+        if (_isString(options.type) && /^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
             $alert.addClass('alert-' + options.type.toLowerCase());
         }
 
         // If the 'allow dismissal' is a boolean datatype and set to true, then add the relevant class and append a button element
-        if (isBoolean(options.allow_dismiss) && options.allow_dismiss) {
+        if (_isBoolean(options.allow_dismiss) && options.allow_dismiss) {
             // Close button
             var $button = $('<button/>')
                 .attr('type', 'button')
@@ -59,13 +60,13 @@
         if (options.top_offset) {
             options.offset = {
                 from: '',
-                amount: options.top_offset
+                amount: options.top_offset,
             };
         }
 
         // Check if the options.offset is correctly formatted
         options.offset.amount = $.isNumeric(options.offset.amount) ? options.offset.amount : 20;
-        options.offset.from = isString(options.offset.from) && /^TOP|BOTTOM$/i.test(options.offset.from) ? options.offset.from : 'top';
+        options.offset.from = _isString(options.offset.from) && /^TOP|BOTTOM$/i.test(options.offset.from) ? options.offset.from : 'top';
 
         // Cache the jQuery selector
         var $this = null;
@@ -85,12 +86,12 @@
         });
 
         // Workaround for changing ele to element
-        if (isString(options.ele)) {
+        if (_isString(options.ele)) {
             options.element = options.ele;
         }
 
         // Set the default 'element' to 'body', if it's an invalid string
-        if (!isString(options.element)) {
+        if (!_isString(options.element)) {
             options.element = 'body';
         }
 
@@ -100,7 +101,7 @@
             margin: 0,
             position: (options.element === 'body' ? 'fixed' : 'absolute'),
             width: 'auto',
-            'z-index': '9999'
+            'z-index': '9999',
         };
 
         // Set the css property i.e. top or bottom, with the offset total
@@ -120,7 +121,7 @@
         $parent.append($alert);
 
         // Convert to uppercase for case-insensitive matching
-        if (isString(options.align)) {
+        if (_isString(options.align)) {
             options.align = options.align.toUpperCase();
         }
 
@@ -128,8 +129,8 @@
         switch (options.align) {
             case 'CENTER':
                 $alert.css({
-                    'left': '50%',
-                    'margin-left': '-' + ($alert.outerWidth() / 2) + 'px'
+                    left: '50%',
+                    'margin-left': '-' + ($alert.outerWidth() / 2) + 'px',
                 });
                 break;
 
@@ -142,7 +143,7 @@
         }
 
         // Set the default value of 'draggable' if not a boolean datatype
-        options.draggable = isBoolean(options.draggable) ? options.draggable : true;
+        options.draggable = _isBoolean(options.draggable) ? options.draggable : true;
 
         // Create variables to store anonymous functions. These are referenced in the delay closure
         var mouseDown = null;
@@ -157,11 +158,12 @@
             var mouse = {
                 x: 0,
                 y: 0,
+
                 // Update function
                 update: function update(event) {
                     this.x = event.pageX;
                     this.y = event.pageY;
-                }
+                },
             };
 
             // Create a function expression to reference at a later stage
@@ -186,7 +188,7 @@
                     // Set the offset of the alert element
                     $alert.offset({
                         left: (offset.left + (event.pageX - mouse.x)),
-                        top: (offset.top + (event.pageY - mouse.y))
+                        top: (offset.top + (event.pageY - mouse.y)),
                     });
 
                     // Update the mouse coordinates
@@ -261,7 +263,7 @@
         MOUSE_MOVE: 'mousemove.bootstrap.growl',
 
         // When the primary mouse button is released. This is only called once using .one()
-        MOUSE_UP: 'mouseup.bootstrap.growl'
+        MOUSE_UP: 'mouseup.bootstrap.growl',
     };
 
     // Fields
@@ -269,12 +271,12 @@
     // Methods (Private)
 
     // Check if value is a boolean datatype
-    function isBoolean(value) {
+    function _isBoolean(value) {
         return $.type(value) === 'boolean';
     }
 
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
-    function isString(value) {
+    function _isString(value) {
         return $.type(value) === 'string' && value.trim().length > 0;
     }
 
@@ -290,7 +292,7 @@
         // Alert offset
         offset: {
             amount: 20, // (number)
-            from: 'top' // ('top', 'bottom')
+            from: 'top', // ('top', 'bottom')
         },
 
         // Alignment relative to the parent element
@@ -309,7 +311,7 @@
         draggable: true, // (true, false)
 
         // Spacing between each new alert that is created
-        stackup_spacing: 10 // (number)
+        stackup_spacing: 10, // (number)
     };
 
-})(this.jQuery);
+})(window.jQuery);
