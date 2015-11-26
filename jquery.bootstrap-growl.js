@@ -21,7 +21,7 @@
         // Add the 'alert' and 'bootstrap-growl' classes for distinguishing
         // other Bootstrap alerts
         .addClass('bootstrap-growl alert')
-        .attr('role', 'alert');
+            .attr('role', 'alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
         if (_isString(options.type) && /^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
@@ -196,30 +196,30 @@
                 };
 
                 // Register an event for 'MOUSE_MOVE' on the parent element
-                $parent.on(Events.MOUSE_MOVE, mouseMove);
+                $parent.on(_eventsMouseMove, mouseMove);
 
                 // Tidy up registered events (good housekeeping)
 
                 // Register an event for 'MOUSE_UP' on the parent element
-                $parent.one(Events.MOUSE_UP, function mouseUpOne() {
+                $parent.one(_eventsMouseUp, function mouseUpOne() {
                     // 'MOUSE_UP' will automatically be unregistered, due to using .one()
 
                     // Unregister the 'MOUSE_MOVE' event
-                    $parent.off(Events.MOUSE_MOVE, mouseMove);
+                    $parent.off(_eventsMouseMove, mouseMove);
                 });
             };
 
             // Register an event for 'MOUSE_DOWN' on the alert
-            $alert.on(Events.MOUSE_DOWN, mouseDown);
+            $alert.on(_eventsMouseDown, mouseDown);
 
             // Tidy up registered events (good housekeeping)
 
             // When the alert is closed, unregister the 'ALERT_CLOSED' event
-            $alert.one(Events.ALERT_CLOSED, function alertClosedOne() {
+            $alert.one(_eventsAlertClosed, function alertClosedOne() {
                 // 'ALERT_CLOSED' will automatically be unregistered, due to using .one()
 
                 // Unregister the 'MOUSE_DOWN' event applied to the parent element
-                $alert.off(Events.MOUSE_DOWN, mouseDown);
+                $alert.off(_eventsMouseDown, mouseDown);
             });
 
         }
@@ -252,19 +252,17 @@
 
     // Constants
 
-    var Events = {
-        // Fired by Bootstrap when the alert has finally closed
-        ALERT_CLOSED: 'closed.bs.alert',
+    // Fired by Bootstrap when the alert has finally closed
+    var _eventsAlertClosed = 'closed.bs.alert';
 
-        // When the primary mouse button is pushed down on the alert
-        MOUSE_DOWN: 'mousedown.bootstrap.growl',
+    // When the primary mouse button is pushed down on the alert
+    var _eventsMouseDown = 'mousedown.bootstrap.growl';
 
-        // When the mouse is moved whilst the primary mouse button is down. This is only created 'MOUSE_DOWN' is invoked
-        MOUSE_MOVE: 'mousemove.bootstrap.growl',
+    // When the mouse is moved whilst the primary mouse button is down. This is only created 'MOUSE_DOWN' is invoked
+    var _eventsMouseMove = 'mousemove.bootstrap.growl';
 
-        // When the primary mouse button is released. This is only called once using .one()
-        MOUSE_UP: 'mouseup.bootstrap.growl',
-    };
+    // When the primary mouse button is released. This is only called once using .one()
+    var _eventsMouseUp = 'mouseup.bootstrap.growl';
 
     // Fields
 
