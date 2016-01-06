@@ -7,7 +7,6 @@
  */
 ; // jshint ignore:line
 (function bootstrapGrowlNamespace($) {
-
     // Plugin Logic
 
     $.bootstrapGrowl = function bootstrapGrowl(message, options) {
@@ -221,7 +220,6 @@
                 // Unregister the 'MOUSE_DOWN' event applied to the parent element
                 $alert.off(_eventsMouseDown, mouseDown);
             });
-
         }
 
         // Display the alert
@@ -311,5 +309,4 @@
         // Spacing between each new alert that is created
         stackup_spacing: 10, // (number)
     };
-
 })(window.jQuery);
