@@ -6,7 +6,7 @@
  * Version: 1.2.2
  */
 ; // jshint ignore:line
-(function bootstrapGrowlNamespace($, undefined) {
+(function bootstrapGrowlNamespace($) {
 
     // Plugin Logic
 
@@ -82,7 +82,7 @@
         // For each element with the class name of '.bootstrap-growl', calculate the offset
         $('.bootstrap-growl').each(function eachGrowl() {
             $this = $(this);
-            offsetAmount = Math.max(offsetAmount, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
+            offsetAmount = Math.max(offsetAmount, parseInt($this.css(options.offset.from), 10) + $this.outerHeight() + options.stackup_spacing);
         });
 
         // Workaround for changing ele to element
@@ -236,10 +236,10 @@
                     // Tidy up registered events (good housekeeping)
 
                     // Unregister the 'MOUSE_MOVE' event
-                    $parent.off(Events.MOUSE_MOVE, mouseMove);
+                    $parent.off(_eventsMouseMove, mouseMove);
 
                     // Unregister the 'MOUSE_DOWN' event applied to the parent element
-                    $alert.off(Events.MOUSE_DOWN, mouseDown);
+                    $alert.off(_eventsMouseDown, mouseDown);
                 }
 
                 return $alert.alert('close');
