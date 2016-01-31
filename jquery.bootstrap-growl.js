@@ -5,8 +5,7 @@
  * Licensed under the MIT license
  * Version: 1.2.2
  */
-; // jshint ignore:line
-(function bootstrapGrowlNamespace($) {
+(function bootstrapGrowlNamespace(window, $) {
     // Plugin Logic
 
     $.bootstrapGrowl = function bootstrapGrowl(message, options) {
@@ -75,13 +74,13 @@
 
         // If 'stack spacing' is not numeric, then set the default to 10
         if (!$.isNumeric(options.stackup_spacing)) {
-            options.stackup_spacing = 10;
+            options.stackup_spacing = 10; // eslint-disable-line camelcase
         }
 
         // For each element with the class name of '.bootstrap-growl', calculate the offset
         $('.bootstrap-growl').each(function eachGrowl() {
             $this = $(this);
-            offsetAmount = Math.max(offsetAmount, parseInt($this.css(options.offset.from), 10) + $this.outerHeight() + options.stackup_spacing);
+            offsetAmount = Math.max(offsetAmount, window.parseInt($this.css(options.offset.from), 10) + $this.outerHeight() + options.stackup_spacing);
         });
 
         // Workaround for changing ele to element
@@ -282,31 +281,34 @@
         // Default parent element to append the alert to. Previously known as ele, which is still supported
         element: 'body',
 
-        // Type of alert. See Bootstrap documentation for any additional supported formats
-        type: 'info', // (null|'default', 'info', 'danger', 'success')
+        // Type of alert. See Bootstrap documentation for any additional supported formats (null|'default', 'info', 'danger', 'success')
+        type: 'info',
 
         // Alert offset
         offset: {
-            amount: 20, // (number)
-            from: 'top', // ('top', 'bottom')
+            // (number)
+            amount: 20,
+
+            // ('top', 'bottom')
+            from: 'top',
         },
 
-        // Alignment relative to the parent element
-        align: 'right', // ('left', 'right', 'center')
+        // Alignment relative to the parent element ('left', 'right', 'center')
+        align: 'right',
 
-        // With of the alert. The default is 250px, which is the same as Bootstrap's alerts
-        width: 250, // (number, 'auto')
+        // With of the alert. The default is 250px, which is the same as Bootstrap's alerts (number, 'auto')
+        width: 250,
 
-        // If true then a cross will be displayed in the top right hand corner of the alert
-        allow_dismiss: true, // (true, false)
+        // If true then a cross will be displayed in the top right hand corner of the alert (true, false)
+        allow_dismiss: true, // eslint-disable-line camelcase
 
-        // Delay for 'on fade out' in milliseconds
-        delay: 5000, // (number)
+        // Delay for 'on fade out' in milliseconds (number)
+        delay: 5000,
 
         // Whether the alert should be draggable using the primary mouse button
         draggable: true, // (true, false)
 
-        // Spacing between each new alert that is created
-        stackup_spacing: 10, // (number)
+        // Spacing between each new alert that is created (number)
+        stackup_spacing: 10, // eslint-disable-line camelcase
     };
-})(window.jQuery);
+}(window, window.jQuery));
