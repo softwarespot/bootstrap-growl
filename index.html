@@ -19,17 +19,16 @@
     <script src="jquery.bootstrap-growl.min.js"></script>
 
     <script>
-        $(function() {
-
+        $(function domReady($) {
             $.bootstrapGrowl('This is a simple growl with default options');
 
-            setTimeout(function() {
+            window.setTimeout(function() {
                 $.bootstrapGrowl('This is a growl with the type as "success"', {
                     type: 'success'
                 });
             }, 1000);
 
-            setTimeout(function() {
+            window.setTimeout(function() {
                 $.bootstrapGrowl('This is a growl with the multiple options', {
                     type: 'danger',
                     align: 'center',
@@ -38,17 +37,14 @@
                 });
             }, 2000);
 
-            setTimeout(function() {
+            window.setTimeout(function() {
                 $.bootstrapGrowl('This is another growl with the multiple options', {
                     type: 'info',
                     align: 'left',
                     stackup_spacing: 30
                 });
             }, 3000);
-
         });
     </script>
-
 </body>
-
 </html>
