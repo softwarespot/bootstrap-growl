@@ -305,8 +305,8 @@
         // Delay for 'on fade out' in milliseconds (number)
         delay: 5000,
 
-        // Whether the alert should be draggable using the primary mouse button
-        draggable: true, // (true, false)
+        // Whether the alert should be draggable using the primary mouse button (true, false)
+        draggable: true,
 
         // Spacing between each new alert that is created (number)
         stackup_spacing: 10, // eslint-disable-line camelcase
